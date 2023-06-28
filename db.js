@@ -2,10 +2,11 @@ const { Pool } = require('pg');
 
 let pool;
 
-if (process.env.NODE_PROD === 'production') {
+if (process.env.NODE_ENV === 'production') {
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
   });
+  console.log('Connected to production database');
 } else {
   pool = new Pool({
     user: 'postgres',
@@ -14,6 +15,7 @@ if (process.env.NODE_PROD === 'production') {
     password: 'docker',
     port: 5432,
   });
+  console.log('connected to local database');
 }
 
 pool.query(`
